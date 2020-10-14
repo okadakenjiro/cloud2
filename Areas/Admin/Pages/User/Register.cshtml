@@ -1,0 +1,49 @@
+﻿@page
+@model KintaiSystem.Areas.Admin.Pages.User.RegisterModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+</div>
+
+<a id="skippy" class="sr-only sr-only-focusable" href="#content">
+    <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+    </div>
+</a>
+
+<div class="w-75 m-auto">
+    @using (Html.BeginForm("Register", "User", new { area = "Admin" }, FormMethod.Post, true, new { @class = "form-register" }))
+    {
+        <div class="form-row">
+            @Html.Label("inputEmployeeId", "従業員ID", new { @class = "col-md-3 col-form-label" })
+            <div class="col-md">
+                @Html.EditorFor(m => m.UserData.EmployeeId, new { htmlAttributes = new { @class = "form-control", @id = "inputEmployeeId", required = "", autofocus = "", placeholder = "従業員ID" } })
+            </div>
+        </div>
+
+        <div class="form-row mt-3">
+            @Html.Label("inputLastName", "氏名", new { @class = "col-md-3 col-form-label" })
+            <div class="col-md">
+                @Html.EditorFor(m => m.UserData.LastName, new { htmlAttributes = new { @class = "form-control", id = "inputLastName", required = "", placeholder = "姓" }, @Value = "@Model.UserData.LastName" })
+            </div>
+            <div class="col-md">
+                @Html.EditorFor(m => m.UserData.FirstName, new { htmlAttributes = new { @class = "form-control", id = "inputFirstName", required = "", placeholder = "名" } })
+            </div>
+        </div>
+
+        <div class="form-row mt-3">
+            @Html.Label("inputEmail", "メールアドレス", new { @class = "col-md-3 col-form-label" })
+            <div class="col-md">
+                @Html.EditorFor(m => m.UserData.MailAddress, new { htmlAttributes = new { @class = "form-control", id = "inputEmail", required = "", placeholder = "user@example.com" } })
+            </div>
+        </div>
+
+        <div class="form-row mt-3">
+            @Html.Label("inputSystemRole", "システムロール", new { @class = "col-md-3 col-form-label" })
+            <div class="col-md">
+                @Html.DropDownListFor(m => m.SystemRoleValue, Model.SystemRoles, "権限を選択", new { @class = "form-control custom-select", id = "inputSystemRole", required = "" })
+            </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">登 録</button>
+    }
+</div>

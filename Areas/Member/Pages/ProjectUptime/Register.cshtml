@@ -1,0 +1,87 @@
+﻿@page
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $('#inputWorkDate').datepicker({
+            zIndexOffset: 9999,
+            format: 'yyyy/mm/dd',
+            language: 'ja'
+        });
+    </script>
+}
+@model KintaiSystem.Areas.Member.Pages.ProjectUptime.RegisterModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+</div>
+
+<a id="skippy" class="sr-only sr-only-focusable" href="#content">
+    <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+    </div>
+</a>
+
+<div class="w-75 m-auto">
+    @using (Html.BeginForm("Register", "ProjectUptime", new { area = "Member" }, FormMethod.Post, true, new { @class = "form-register" }))
+    {
+        <div class="form-row">
+            <div class="mt-5">
+                @Html.Label("inputWorkDate", "日付", new { @class = "col-md-4 col-form-label" })
+                <div class="col-md col-xs-4">
+                    @Html.EditorFor(m => Model.TargetDay, new { htmlAttributes = new { @class = "form-control", @id = "inputWorkDate", required = "", placeholder = "yyyy/MM/dd" } })
+                    <button type="submit" class="btn btn-lg btn-primary mt-4" formmethod="get">表 示</button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <div class="card">
+                @{
+                    int idx = 0;
+                }
+                @foreach (var item in Model.ProjectList)
+                {
+                    <input type="hidden" name="ProjectList[@idx].PrimaryId" value="@item.PrimaryId" />
+                    <input type="hidden" name="ProjectList[@idx].ProjectId" value="@item.ProjectId" />
+                    <div class="card-header">@Html.DisplayFor(m => item.ProjectName)</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-row">
+                                            @Html.Label("inputWorkTime", "作業時間", new { @class = "col-md-3 col-form-label" })
+                                            <div class="col-sm-2">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="ProjectList[@idx].WorkMinute" value="@item.WorkMinute" maxlength="3" style="text-align:right" />
+                                                    <div class="input-group-append"><div class="input-group-text">h</div></div>
+                                                </div>
+                                            </div>
+                                            @Html.ValidationMessageFor(m => m.ProjectList[@idx].WorkMinute, "", new { @style = "color:red" })
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-row">
+                                            @Html.Label("inputRemarks", "作業報告", new { @class = "col-md-3 col-form-label" })
+                                            <div class="col-md">
+                                                <textarea class="form-control" name="ProjectList[@idx].Remarks" rows="5" placeholder="作業内容を入力します。">@item.Remarks</textarea>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    idx++;
+                }
+            </div>
+        </div>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-lg btn-primary btn-block mt-4" formmethod="post">登 録</button>
+        @*<button class="btn btn-lg btn-primary btn-block mt-4" type="">キャンセル</button>*@
+        <br>
+    }
+</div>

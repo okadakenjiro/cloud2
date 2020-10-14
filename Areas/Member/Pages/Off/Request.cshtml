@@ -1,0 +1,78 @@
+﻿@page
+@section scripts
+{
+<script>
+    $('#inputFromDate, #inputToDate').datepicker({
+        format: 'yyyy/mm/dd',
+        language: 'ja',
+    });
+</script>
+}
+@model KintaiSystem.Areas.Member.Pages.Off.RequestModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+</div>
+
+<a id="skippy" class="sr-only sr-only-focusable" href="#content">
+    <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+    </div>
+</a>
+
+<div class="container w-75 m-auto">
+@using (Html.BeginForm("Request", "Off", new { area = "Member" }, FormMethod.Post, true, new { @class = "form-Request" }))
+{
+    <div class="mt-5">
+        <div class="card">
+            <div class="card-header">申請内容</div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-row">
+                                    @Html.Label("inputRequestType", "休暇種別", new { @class = "col-md-3 col-form-label" })
+                                    <div class="col-md">
+                                        @Html.DropDownListFor(m => m.RequestTypes, Model.RequestTypes, "選択して下さい", new { @class = "form-control custom-select", id = "inputRequestType", required = "" })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-row">
+                                    @Html.Label("inputDate", "取得予定日", new { @class = "col-md-3 col-form-label" })
+                                    <div class="col-md">
+                                        @Html.EditorFor(m => m.FromDate, new { htmlAttributes = new { @class = "form-control", @id = "inputFromDate", required = "", placeholder = "yyyy/MM/dd" } })
+                                    </div>
+                                    @Html.Label("tilde", "～", new { @class = "col-md-3 col-form-label text-center" })
+                                    <div class="col-md">
+                                        @Html.EditorFor(m => m.ToDate, new { htmlAttributes = new { @class = "form-control", @id = "inputToDate", required = "", placeholder = "yyyy/MM/dd" } })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-row">
+                                    @Html.Label("inputReason", "申請理由", new { @class = "col-md-3 col-form-label" })
+                                    <div class="col-md">
+                                        <textarea asp-for="Reason" class="form-control" rows="5" id="reason" placeholder="私用のため"></textarea>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-row">
+                                    <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">申 請</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+</div>

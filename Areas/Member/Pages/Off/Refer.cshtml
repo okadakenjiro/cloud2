@@ -1,0 +1,42 @@
+﻿@page
+@model KintaiSystem.Areas.Member.Pages.Off.ReferModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+</div>
+
+<a id="skippy" class="sr-only sr-only-focusable" href="#content">
+    <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+    </div>
+</a>
+
+<div class="container w-75 m-auto">
+    @using (Html.BeginForm("Refer", "Off", new { area = "Member" }, FormMethod.Post, true, new { @class = "form-Refer" }))
+    {
+        <div class="mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>申請種別</th>
+                        <th>取得予定日</th>
+                        <th>取得理由</th>
+                        <th>承認者</th>
+                        <th>申請結果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var data in Model.viewDataList)
+                {
+                    <tr>
+                        <td class="requestTypeName">@data.RequestTypeName</td>
+                        <td class="scheduledDate">@data.ScheduledDate</td>
+                        <td class="reason">@data.Reason</td>
+                        <td class="approvalName">@data.ApprovalName</td>
+                        <td class="approvalMsg">@data.ApprovalMsg</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

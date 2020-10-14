@@ -1,0 +1,57 @@
+﻿@page
+@model KintaiSystem.Areas.Manager.Pages.Cost.ReferModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+</div>
+
+<a id="skippy" class="sr-only sr-only-focusable" href="#content">
+    <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+    </div>
+</a>
+
+<div class="container w-75 m-auto">
+@using (Html.BeginForm("Refer", "Cost", new { area = "Manager" }, FormMethod.Post, true, new { @class = "form-Record" }))
+{
+    <div class="mt-5">
+        <div class="card">
+        @foreach (var data in Model.viewDataList)
+        {
+            <div class="card-header" style="cursor: pointer;" data-toggle="collapse" data-target="#@(data.Id)" aria-expanded="false" aria-controls="@(data.Id)">
+                <h5>@data.Name</h5>
+            </div>
+            <div class="collapse" id="@(data.Id)">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>見積工数</th>
+                                <th>累計実績</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span>@data.ScheduledCost</span><span>h</span></td>
+                                <td><span>@data.TotalCost</span><span>h</span></td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">メンバー別実績</th>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                        @foreach (var member in data.MemberList)
+                        {
+                            <tr>
+                                <td>@member.Id</td>
+                                <td><span>@member.WorkTime</span><span>h</span></td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+}
+</div>

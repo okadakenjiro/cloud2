@@ -1,0 +1,119 @@
+﻿@page
+@section scripts
+{
+<script>
+    $(function() {
+        $('#approveDialog').on('show.bs.modal', function (event) {
+            // 選択情報取得
+            var employeeId = $(event.relatedTarget).find(".employeeId").text();
+            var name = $(event.relatedTarget).find(".name").text();
+            var requestTypeName = $(event.relatedTarget).find(".requestTypeName").text();
+            var scheduledDate = $(event.relatedTarget).find(".scheduledDate").text();
+            var approvalFlg = $(event.relatedTarget).find(".approvalFlg").text();
+
+            // ダイアログのbody部を編集
+            var modal = $(this);
+            modal.find('.modal-body-name').text('申請者：' + name);
+            modal.find('.modal-body-date').text('取得予定日：' + scheduledDate);
+
+            // 承認済みのチェック
+            if (approvalFlg === "済")
+            {
+                // ダイアログのtitle部、ボタン表示を編集
+                modal.find('.modal-title').text('承認済みです。');
+                modal.find('.btnApprove, .btnReject').hide();
+
+                // ターゲット情報を編集
+                $("#targetEmployeeId").val('');
+                $("#targetScheduledDate").val('');
+            } else if (approvalFlg === "否")
+            {
+                // ダイアログのtitle部、ボタン表示を編集
+                modal.find('.modal-title').text('拒否済みです。');
+                modal.find('.btnApprove, .btnReject').hide();
+
+                // ターゲット情報を編集
+                $("#targetEmployeeId").val('');
+                $("#targetScheduledDate").val('');
+            } else
+            {
+                // ダイアログのtitle部、ボタン表示を編集
+                modal.find('.modal-title').text('「' + requestTypeName + '」' + 'の申請です。');
+                modal.find('.btnApprove, .btnReject').show();
+
+                // ターゲット情報を編集
+                $("#targetEmployeeId").val(employeeId);
+                $("#targetScheduledDate").val(scheduledDate);
+            }
+        })
+    });
+</script>
+}
+@model KintaiSystem.Areas.Manager.Pages.Off.ApproveModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+</div>
+
+<a id="skippy" class="sr-only sr-only-focusable" href="#content">
+    <div class="container">
+        <span class="skiplink-text">Skip to main content</span>
+    </div>
+</a>
+
+<div class="container w-75 m-auto">
+@using (Html.BeginForm("Approve", "Off", new { area = "Manager" }, FormMethod.Post, true, new { @class = "form-Approve" }))
+{
+    <div class="mt-5">
+        @Html.HiddenFor(m => m.targetEmployeeId)
+        @Html.HiddenFor(m => m.targetScheduledDate)
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>従業員ID</th>
+                    <th>申請者</th>
+                    <th>申請種別</th>
+                    <th>取得予定日</th>
+                    <th>取得理由</th>
+                    <th>承認</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var data in Model.viewDataList)
+            {
+                <tr data-toggle="modal" data-target="#approveDialog" style="cursor: pointer;">
+                    <td class="employeeId">@data.EmployeeId</td>
+                    <td class="name">@data.Name</td>
+                    <td class="requestTypeName">@data.RequestTypeName</td>
+                    <td class="scheduledDate">@data.ScheduledDate</td>
+                    <td class="reason">@data.Reason</td>
+                    <td class="approvalFlg">@data.ApprovalFlg</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+    @* Modal *@
+    <div class="modal fade" id="approveDialog" tabindex="-1" role="dialog" aria-labelledby="approveDialogLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="approveDialogLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span class="modal-body-name"></span><br>
+                    <span class="modal-body-date"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" asp-page-handler="Approve" class="btn btn-primary btnApprove" value="承認"/>
+                    <input type="submit" asp-page-handler="Reject" class="btn btn-danger btnReject" value="拒否"/>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+</div>

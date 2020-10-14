@@ -1,0 +1,26 @@
+﻿@page
+@model KintaiSystem.Areas.Manager.Pages.IndexModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<h2>Welcome manager!!</h2>
+
+<div class="container">
+@if (Model.IsPermitted("Manager.Index.DefaultLink"))
+{
+    <div class="row mt-3">
+        <div class="col-md">
+            <a asp-area="Manager" asp-page="/Off/Approve" class="btn btn-info">休暇承認</a>
+        </div>
+    </div>
+}
+@if (Model.IsPermitted("Manager.Index.CostReferLink"))
+{
+    <div class="row mt-3">
+        <div class="col-md">
+            <a asp-area="Manager" asp-page="/Cost/Refer" class="btn btn-info">工数管理</a>
+        </div>
+    </div>
+}
+<div>

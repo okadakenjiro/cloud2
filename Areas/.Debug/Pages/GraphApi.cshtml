@@ -1,0 +1,19 @@
+﻿@page
+@model KintaiSystem.Areas.Debug.Pages.GraphApiModel
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+    <p>Graph APIにてAzure Active Directoryからユーザー情報を取得する</p>
+</div>
+<h2>Get user data from Microsoft Graph</h2>
+<details open>
+    <summary><h4>User data</h4></summary>
+    <dl>
+        @{var userData = Model.UserData;}
+        <dt>氏名</dt>
+        <dd>@userData.LastName @userData.FirstName</dd>
+        <dt>メールアドレス</dt>
+        <dd>@userData.MailAddress</dd>
+        <dt>従業員ID</dt>
+        <dd>@userData.EmployeeId</dd>
+    </dl>
+</details>

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>749b0ac9-0ead-4178-8d79-668781308264</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>KintaiSystem</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Areas\.auth\Pages\aad-login\callback.cshtml.cs" />
+    <Compile Include="Areas\.Debug\Pages\GraphApi.cshtml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\.auth\Pages\aad-login\callback.cshtml" />
+    <Content Include="Areas\.Debug\Pages\GraphApi.cshtml" />
+    <Content Include="Areas\.Debug\Pages\_ViewImports.cshtml" />
+    <Content Include="Areas\.Debug\Pages\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.5" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Graph" Version="3.13.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="0.4.0-preview" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Pages\Shared\_Layout.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
