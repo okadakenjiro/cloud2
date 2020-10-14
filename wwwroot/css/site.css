@@ -12,6 +12,7 @@ a {
   color: red;
 }
 
+
 .btn-primary {
   color: #fff;
   /* background-color: #1b6ec2;
@@ -528,6 +529,6 @@ eg <g class="hour digit digit-1 number-is-3">
 h1#time{
   color:white!important;
 }
-h2{
+/* h2{
   color:white!important;
-}
+} */
