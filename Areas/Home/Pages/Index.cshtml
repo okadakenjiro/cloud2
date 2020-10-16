@@ -256,11 +256,11 @@
     <div class="flex">
 @if (Model.IsPermitted("Home.Index.AdminLink"))
 {
-        <a asp-area="Admin" asp-page="Index" class="btn btn-success btn-outline-light" id="link-admin-index"style="width: 48.5%;">システム管理者用ページへ</a>
+        <a asp-area="Admin" asp-page="Index" class="btn btn-info btn-outline-light" id="link-admin-index"style="width: 48.5%;">システム管理者用ページへ</a>
 }
 @if (Model.IsPermitted("Home.Index.ManagerLink"))
 {
-        <a asp-area="Manager" asp-page="Index" class="btn btn-success btn-outline-light" id="link-manager-index"style="width: 48.5%;">管理職用ページへ</a>
+        <a asp-area="Manager" asp-page="Index" class="btn btn-info btn-outline-light" id="link-manager-index"style="width: 48.5%;">管理職用ページへ</a>
 
 }
     </div>
